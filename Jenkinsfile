@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'Gaza2121') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'gaza1212') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
@@ -52,7 +52,7 @@ stage ('DeployToProduction') {
                 } catch (err) {
                     echo: 'caught error: $err'
                 }
-                sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker run --restart always --name train-schedule -p 8080:8080 -d <DOCKER_HUB_USERNAME>/train-schedule:${env.BUILD_NUMBER}\""
+                sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker run --restart always --name train-schedule -p 8080:8080 -d gaza1212/train-schedule:${env.BUILD_NUMBER}\""
             }
         }
     }
